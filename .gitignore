@@ -1,0 +1,7 @@
+./bin
+fed-gen
+lingua-franca*
+Results/HLA_like
+Results/SOTA
+Results/Solution
+Results/*.csv
