@@ -4,7 +4,9 @@ import pandas as pd
 import sys
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-trace_path = os.path.join(current_dir, '../lingua-franca/core/src/main/resources/lib/c/reactor-c/util/tracing/trace_to_csv')
+trace_path_HLA_like = os.path.join(current_dir, '../lingua-franca-HLA-like/core/src/main/resources/lib/c/reactor-c/util/tracing/trace_to_csv')
+trace_path_SOTA = os.path.join(current_dir, '../lingua-franca-SOTA/core/src/main/resources/lib/c/reactor-c/util/tracing/trace_to_csv')
+trace_path_solution = os.path.join(current_dir, '../lingua-franca-solution/core/src/main/resources/lib/c/reactor-c/util/tracing/trace_to_csv')
 
 def extract_ms_value(folder_name):
     """Extract the ms value from folder name for sorting."""
@@ -12,7 +14,7 @@ def extract_ms_value(folder_name):
     ms_part = folder_name.split('_')[-1]
     return int(ms_part.replace('ms', ''))
 
-def process_rti_file(rti_path):
+def process_rti_file(rti_path, top_dir):
     """Process a single rti.lft file and return signal counts."""
     # Get directory containing the rti file
     rti_dir = os.path.dirname(rti_path)
@@ -28,13 +30,24 @@ def process_rti_file(rti_path):
     # Save current directory
     original_dir = os.getcwd()
     
+    # Select the appropriate trace_path based on top_dir
+    if top_dir == "HLA_like":
+        trace_tool = trace_path_HLA_like
+    elif top_dir == "SOTA":
+        trace_tool = trace_path_SOTA
+    elif top_dir == "Solution":
+        trace_tool = trace_path_solution
+    else:
+        print("The top directory should be HLA_like, SOTA, or Solution.")
+        sys.exit(1)
+    
     try:
         # Change to the directory containing rti.lft (like pushd)
         os.chdir(rti_dir)
         
         # Run trace_to_csv command with just the filename since we're in the right directory
         try:
-            subprocess.run([trace_path, 'rti.lft'], check=True)
+            subprocess.run([trace_tool, 'rti.lft'], check=True)
         except subprocess.CalledProcessError as e:
             print(f"Error processing {rti_path}: {e}")
             return None
@@ -72,7 +85,7 @@ def process_rti_file(rti_path):
         # Always return to original directory (like popd)
         os.chdir(original_dir)
 
-def process_benchmark_directory(benchmark_dir):
+def process_benchmark_directory(benchmark_dir, top_dir):
     """Process all ms subfolders in a benchmark directory."""
     base_name = os.path.basename(benchmark_dir)
     results = {}
@@ -103,7 +116,7 @@ def process_benchmark_directory(benchmark_dir):
             continue
         
         # Process the rti file
-        signal_counts = process_rti_file(rti_path)
+        signal_counts = process_rti_file(rti_path, top_dir)
         if signal_counts is None:
             print(f"Error processing {ms_dir_path}")
             continue
@@ -131,10 +144,12 @@ def main():
     # Find all benchmark directories one level deep
     benchmark_dirs = []
     
-    # Top-level directories (like Plain)
+    # Top-level directories (like HLA_like, SOTA, Solution)
     for top_dir in os.listdir('.'):
         top_dir_path = os.path.join('.', top_dir)
-        if os.path.isdir(top_dir_path):
+        if os.path.isdir(top_dir_path) and top_dir in ["HLA_like", "SOTA", "Solution"]:
+            print(f"Processing top directory: {top_dir}")
+            
             # Check second level directories (like CycleWithDelay)
             for benchmark in os.listdir(top_dir_path):
                 benchmark_path = os.path.join(top_dir_path, benchmark)
@@ -143,17 +158,17 @@ def main():
                     has_ms_subdir = any("ms" in item for item in os.listdir(benchmark_path) 
                                        if os.path.isdir(os.path.join(benchmark_path, item)))
                     if has_ms_subdir:
-                        benchmark_dirs.append(benchmark_path)
+                        benchmark_dirs.append((benchmark_path, top_dir))
 
     if not benchmark_dirs:
         print("Error: No suitable benchmark directories found")
         sys.exit(1)
 
-    print(f"Found benchmark directories to process: {', '.join(benchmark_dirs)}")
+    print(f"Found benchmark directories to process: {', '.join([d[0] for d in benchmark_dirs])}")
 
-    for directory in benchmark_dirs:
-        print(f"\nProcessing directory: {directory}")
-        process_benchmark_directory(directory)
+    for directory, top_dir in benchmark_dirs:
+        print(f"\nProcessing directory: {directory} with {top_dir} trace tool")
+        process_benchmark_directory(directory, top_dir)
 
 if __name__ == "__main__":
     main()

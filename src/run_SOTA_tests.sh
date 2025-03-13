@@ -4,8 +4,8 @@ folders=("SporadicSender" "DistanceSensing" "CycleWithDelay")
 
 results_path="../Results"
 bin_path="../bin"
-lfc_path="../lingua-franca/bin/lfc-dev"
-rti_relative_path="../lingua-franca/core/src/main/resources/lib/c/reactor-c/core/federated/RTI/build/RTI"
+lfc_path="../lingua-franca-SOTA/bin/lfc-dev"
+rti_relative_path="../lingua-franca-SOTA/core/src/main/resources/lib/c/reactor-c/core/federated/RTI/build/RTI"
 # Get absolute path of the RTI relative to the script location
 # Get the absolute path
 if command -v realpath &> /dev/null; then
@@ -21,8 +21,6 @@ else
     rti_abs_path="$(pwd)/$path_base"
     cd "$original_dir" || exit 1
 fi
-
-rm -rf $bin_path/SOTA
 
 # Simulate the network with 10 ms of delay and 1 ms of jitter.
 sudo tc qdisc add dev lo root netem delay 5ms 1ms
