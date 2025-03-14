@@ -76,7 +76,7 @@ reactor Actuator {
 
 federated reactor at localhost {
 	t_t = new TempSensor()
-	t_u = new UltraSonicSensor(Period = 10 msec, ResultFile = ".//DistanceSensing_10ms.csv")
+	t_u = new UltraSonicSensor(Period = 50 msec, ResultFile = ".//DistanceSensing_50ms.csv")
 	t_a = new Actuator()
 
 	t_t.out -> t_u.in

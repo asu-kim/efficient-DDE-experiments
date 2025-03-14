@@ -58,7 +58,7 @@ reactor Receiver {
 }
 
 federated reactor at localhost {
-  s_s = new Sender(Period = 10 msec, ResultFile = ".//SporadicSender_10ms.csv")
+  s_s = new Sender(Period = 50 msec, ResultFile = ".//SporadicSender_50ms.csv")
   s_r = new Receiver()
 
   s_s.out -> s_r.in

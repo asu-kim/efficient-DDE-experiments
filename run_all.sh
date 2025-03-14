@@ -1,7 +1,7 @@
 #!/bin/sh
 
 pushd src
-./run_HLA_like_tests
-./run_solution_tests
-./run_SOTA_tests
+./run_HLA_like_tests.sh
+./run_solution_tests.sh
+./run_SOTA_tests.sh
 popd

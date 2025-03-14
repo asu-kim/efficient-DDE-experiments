@@ -1,7 +1,7 @@
 target C {
 	// logging: debug,
 	tracing: true,
-	timeout: 15 sec
+	timeout: 500 sec
 }
 
 reactor TempSensor {

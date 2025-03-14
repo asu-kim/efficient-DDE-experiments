@@ -65,7 +65,7 @@ reactor RobotArm {
 }
 
 federated reactor at localhost {
-  c_s = new Sensor(Period = 5 msec, ResultFile = ".//CycleWithDelay_5ms.csv")
+  c_s = new Sensor(Period = 50 msec, ResultFile = ".//CycleWithDelay_50ms.csv")
   c_r = new RobotArm()
 
   c_s.out -> c_r.in after 100 msec
