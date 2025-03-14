@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 pushd src
 ./run_HLA_like_tests.sh

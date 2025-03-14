@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Set up the HLA-like Lingua Franca directory
 if [[ -d "lingua-franca-HLA-like" ]]; then
