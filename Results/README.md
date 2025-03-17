@@ -1,10 +1,10 @@
 # Experiment Results
-This directory contains scripts to process the experiment results.
+This directory contains scripts to process and visualize the experiment results.
 ```
 efficient-DDE-experiments/
 |-- Results/
     |-- HLA_like/                      /* Results with the HLA-like approach  */
-    |-- Solution/                      /* Results with out solution approach */
+    |-- Solution/                      /* Results without solution approach */
     |-- SOTA/                          /* Results with the SOTA approach */
     |-- combineCSVAverage.py           /* Python script to combine CSV files storing the measured lags*/
     |-- generateGnuplot.py             /* Python script to modify Gnuplot files according to the measured lags*/
@@ -17,5 +17,5 @@ efficient-DDE-experiments/
     |-- CycleWithDelayLags.gnuplot     /* Gnuplot code to generate Figure 15c in the paper */
     |-- CycleWithDelayLags.pdf         /* Generated Figure 15c in the paper */
     |-- table_num_signals              /* Generated Table 3 in the paper */
-    |-- process_results.sh             /* Run every python script and generate figures and table at once */
+    |-- process_results.sh             /* Run every Python script and generate figures and table at once */
 ```
