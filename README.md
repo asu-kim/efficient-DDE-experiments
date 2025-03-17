@@ -31,7 +31,7 @@ The hardware/software configurations used by the authors are:
 * For running tests: `bash, git, java (>=17), cmake (>=3.13), gcc, make, iproute2`
 * For processing data and generating figures: `bash, python3, pip3, pandas, gnuplot`
 
-## Structure of the artifact
+## Structure of the Artifact
 ```
 efficient-DDE-experiments/
  |-- fed-gen/       /* Reactor programs generated during runs */
@@ -55,7 +55,7 @@ The article has two major claims:
 * C1: Our solution prevents the programs `DistanceSensing` and `CycleWithDelay` from suffering the excessive lags even with shorther timer periods, e.g., 5ms and 10 ms, where HLA-like and SOTA approaches fail.
 * C2: Our solution reduces communication overhead, i.e., the number of exchanged signals, for all programs.
 
-## Reproducing the results.
+## Reproducing the Results.
 The paper has 1 figure (3 subfigures) and 1 table that can be reproduced. The following table summarizes the mapping between claims, experiments, figures, and tables.
 
 ### Instructions
@@ -92,10 +92,10 @@ gnuplot CycleWithDelayLags.gnuplot
 ### Expected Runtime
 The expected runtime is `500 sec` (each program's timeout time) * 15 (number of programs) * 3 (number of approaches) = `6.25 hours` excluding the compile and setup time. 
 
-### Result graphs and table
+### Result Graphs and Table
 After the tests are complete, you can find `SporadicSenderLags.pdf`, `SporadicSenderLags.pdf`, and `SporadicSenderLags.pdf`, which are the subplots of Figure 15 as well as `table_num_signals.tex`, Table 3 in the paper.
 
-## Notes
+## Notes for Repeatability of Experiments
 All scripts assume that they run on the directory they locate.
 
 Before running the tests, make sure the command `sudo tc qdisc add dev lo root netem delay 5ms 1ms` runs correctly by running
