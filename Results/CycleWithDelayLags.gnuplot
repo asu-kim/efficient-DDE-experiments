@@ -67,8 +67,7 @@ plot 'CycleWithDelayHLA_likeStatistics.csv' using (3*$1-xx):3:(ww) lt 1 w boxes 
 
 unset ytics
 unset ylabel
-# set ytics ((y5 + y6)/2) font ", 14"
-set ytics (269200) font ", 14"
+set ytics ((y5 + y6)/2) font ", 14"
 set border 2+4+8
 set bmargin at screen bm + size * bk + size * mk + gap + gap
 set tmargin at screen bm + size + gap + gap
