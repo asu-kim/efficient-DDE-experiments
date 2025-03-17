@@ -85,10 +85,20 @@ gnuplot CycleWithDelayLags.gnuplot
 ```
 
 ### Expected Runtime
-The expected runtime is `500 seconds` (each program's timeout time) * 15 (number of programs) * 3 (number of approaches) = `6.25 hours` excluding the compile time. 
+The expected runtime is `500 sec` (each program's timeout time) * 15 (number of programs) * 3 (number of approaches) = `6.25 hours` excluding the compile time. 
 
 ### Result graphs and table
 After the tests complete, you can find `SporadicSenderLags.pdf`, `SporadicSenderLags.pdf`, and `SporadicSenderLags.pdf`, which are the subplots of Figure 15 as well as `table_num_signals.tex`, Table 3 in the paper.
 
 ## Notes
 All scripts assume that they run on the directory they locate.
+
+Before running the tests, make sure the command `sudo tc qdisc add dev lo root netem delay 5ms 1ms` run correctly by running
+```
+sudo tc qdisc add dev lo root netem delay 5ms 1ms
+ping localhost
+sudo tc qdisc del dev lo root # Reset the network delay.
+```
+and checking whether the measured delay is around `10 msec` or not.
+We tested this on VMs and saw that VMs usually fail to report the stable network delay due to the VM scheduling issue, virtualized network overhead, etc.
+Our solution can make sure that the delay won't be accumulated even with the network delay much higher than `10 ms` such as `100 msec` but the average delay will be higher than the results in the paper.
