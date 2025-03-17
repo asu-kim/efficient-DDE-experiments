@@ -56,7 +56,12 @@ The article has two major claims:
 * C2: Our solution reduces communication overhead, i.e., the number of exchanged signals, for all programs.
 
 ## Reproducing the Results.
-The paper has 1 figure (3 subfigures) and 1 table that can be reproduced. The following table summarizes the mapping between claims, experiments, figures, and tables.
+The paper has 1 figure (3 subfigures) and 1 table that can be reproduced. The following table summarizes the mapping between claims with figures and table.
+
+| Claim |          Figures and Table            |
+|-------|---------------------------------------|
+| C1    | Figure 15a, Figure 15b, Figure 15c    |
+| C2    |             Table 3                   |
 
 ### Instructions
 1. Set up environments including cloning Lingua Franca and building the Lingua Franca compiler, the runtime infrastructure (RTI), and the tracing tool.
@@ -93,7 +98,8 @@ gnuplot CycleWithDelayLags.gnuplot
 The expected runtime is `500 sec` (each program's timeout time) * 15 (number of programs) * 3 (number of approaches) = `6.25 hours` excluding the compile and setup time. 
 
 ### Result Graphs and Table
-After the tests are complete, you can find `SporadicSenderLags.pdf`, `SporadicSenderLags.pdf`, and `SporadicSenderLags.pdf`, which are the subplots of Figure 15 as well as `table_num_signals.tex`, Table 3 in the paper.
+After the tests are complete, you can find `SporadicSenderLags.pdf`, `DistanceSensingLags.pdf`, and `CycleWithDelayLags.pdf`, which are Figure 15a, Figure 15b, and Figure 15c, respectively.
+You can also find `table_num_signals.tex`, which is Table 3 in the paper.
 
 ## Notes for Repeatability of Experiments
 All scripts assume that they run on the directory they locate.
