@@ -7,10 +7,10 @@ This is an artifact for evaluation of the paper (PADS'25):
 Accepted to ACM SIGSIM PADS 2025.
 
 ## Authors & Contacts
-* **Byeonggil Jun <byeonggil@asu.edu>**
-* Edward A. Lee <eal@berkeley.edu>
-* Marten Lohstroh <marten@berkeley.edu>
-* Hokeun Kim <hokeun@asu.edu>
+* **Byeonggil Jun** \<<byeonggil@asu.edu>\>
+* Edward A. Lee \<<eal@berkeley.edu>\>
+* Marten Lohstroh \<<marten@berkeley.edu>\>
+* Hokeun Kim \<<hokeun@asu.edu>\> \[[Website](https://hokeun.github.io/)\]
 
 ## Requirements
 * Linux system with gcc toolchain and [linux traffic control](https://man7.org/linux/man-pages/man8/tc.8.html) 
