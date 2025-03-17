@@ -1,4 +1,4 @@
-# efficient-DDE-experiments
+# [efficient-DDE-experiments](https://github.com/asu-kim/efficient-DDE-experiments)
 
 This is an artifact for evluation of the paper:
 
@@ -15,6 +15,7 @@ Accepted to ACM SIGSIM PADS 2025.
 ## Requirements
 * Linux system with gcc toolchain and [linux traffic control](https://man7.org/linux/man-pages/man8/tc.8.html) 
 * Root priviledges for [linux traffic control](https://man7.org/linux/man-pages/man8/tc.8.html) to change the network setting
+* 5GB of memory space
 
 The hardware/software configurations used by authors are:
 * Configuration 1
@@ -24,7 +25,7 @@ The hardware/software configurations used by authors are:
 * Configuration 2
     * Hardware: Raspberry Pi 4
     * RAM: 4GB
-    * OS: Raspberry Pi OS (64-bit)
+    * OS: Raspberry Pi OS (64-bit) (Linux raspberrypi 6.6.28+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.6.28-1+rpt1 (2024- 04-22) aarch64 GNU/Linux)
 
 ## Dependencies
 * For running tests: `bash, git, java (>=17), cmake (>=3.13), gcc, make, iproute2`
@@ -85,7 +86,7 @@ gnuplot CycleWithDelayLags.gnuplot
 ```
 
 ### Expected Runtime
-The expected runtime is `500 sec` (each program's timeout time) * 15 (number of programs) * 3 (number of approaches) = `6.25 hours` excluding the compile time. 
+The expected runtime is `500 sec` (each program's timeout time) * 15 (number of programs) * 3 (number of approaches) = `6.25 hours` excluding the compile and setup time. 
 
 ### Result graphs and table
 After the tests complete, you can find `SporadicSenderLags.pdf`, `SporadicSenderLags.pdf`, and `SporadicSenderLags.pdf`, which are the subplots of Figure 15 as well as `table_num_signals.tex`, Table 3 in the paper.
