@@ -6,6 +6,8 @@ This is an artifact for evaluation of the paper (PADS'25):
 
 Accepted to ACM SIGSIM PADS 2025.
 
+This repository can be accessed via: [https://github.com/asu-kim/efficient-DDE-experiments](https://github.com/asu-kim/efficient-DDE-experiments)
+
 ## Authors & Contacts
 * **Byeonggil Jun** \<<byeonggil@asu.edu>\>
 * Edward A. Lee \<<eal@berkeley.edu>\>
