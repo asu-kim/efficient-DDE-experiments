@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import numpy as np
 
 # Define the benchmarks and approaches
 benchmarks = ["SporadicSender", "DistanceSensing", "CycleWithDelay"]
@@ -26,7 +25,7 @@ def read_csv_file(file_path):
 # Function to get value from dataframe
 def get_value(df, metric, period):
     if df.empty or period not in df.columns:
-        return np.nan
+        return float('nan')
     
     # Try with "num_" prefix first
     if f"num_{metric}" in df.index:
@@ -35,7 +34,7 @@ def get_value(df, metric, period):
     elif metric in df.index:
         return df.loc[metric, period]
     
-    return np.nan
+    return float('nan')  # Using float('nan') instead of np.nan
 
 # Function to format a value for LaTeX
 def format_value(value):

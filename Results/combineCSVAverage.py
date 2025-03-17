@@ -1,8 +1,6 @@
 import os
 import pandas as pd
-import numpy as np
 import sys
-from pathlib import Path
 
 def combine_csv_files(base_dir):
     # Get the directory name for the output file name

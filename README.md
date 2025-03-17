@@ -1,26 +1,94 @@
 # efficient-DDE-experiments
 
-## Prerequisites
-git
-java (>=17)
-cmake (>=3.19)
-gcc
-make
-iproute2
+This is an artifact for evluation of the paper:
 
-## Instructions
+"Improving the Efficiency of Coordinating Timed Events in Distributed Systems"
 
+Accepted to ACM SIGSIM PADS 2025.
+
+## Authors & Contacts
+* **Byeonggil Jun <byeonggil@asu.edu>**
+* Edward A. Lee <eal@berkeley.edu>
+* Marten Lohstroh <marten@berkeley.edu>
+* Hokeun Kim <hokeun@asu.edu>
+
+## Requirements
+* Linux system with gcc toolchain and [linux traffic control](https://man7.org/linux/man-pages/man8/tc.8.html) 
+* Root priviledges for [linux traffic control](https://man7.org/linux/man-pages/man8/tc.8.html) to change the network setting
+
+The hardware/software configurations used by authors are:
+* Configuration 1
+    * CPU: Intell 14900k
+    * RAM: 128GB
+    * OS: Ubuntu 22.04
+* Configuration 2
+    * Hardware: Raspberry Pi 4
+    * RAM: 4GB
+    * OS: Raspberry Pi OS (64-bit)
+
+## Dependencies
+* For running tests: `bash, git, java (>=17), cmake (>=3.13), gcc, make, iproute2`
+* For processing data and generating figures: `bash, python3, pip3, pandas, gnuplot`
+
+## Structure of the artifact
+```
+efficient-DDE-experiments/
+ |-- fed-gen/       /* Reactor programs generated during runs */
+ |-- lingua-franca-HLA-like/ /* Baseline Lingua Franca toolchain */
+ |-- lingua-franca-solution/ /* Lingua Franca with our solution */
+ |-- lingua-franca-SOTA/ /* Lingua Franca with DNET signal capability */
+ |-- Results/       /* Raw results and scripts to process them */
+ |-- src/           /* Lingua Franca programs for testing and scripts to run tests for each approach */   
+ |-- README.md      /* This file */
+ |-- clean_all.sh   /* Script to clean up the generated codes */
+ |-- run_all.sh     /* Script to run all tests */
+ |-- setup.sh       /* Script to set up the environment */
+```
+
+## Article Claims
+The artical has two major claims:
+* C1: Our solution prevents the programs `DistanceSensing` and `CycleWithDelay` from suffering the excessive lags even with shorther timer periods, e.g., 5ms and 10 ms, where HLA-like and SOTA approaches fail.
+* C2: Our solution reduces communication overhead, i.e., the number of exchanged signals, for all programs.
+
+## Reproducing the results.
+The paper has 1 figure (3 subfigures) and 1 table that can be reproduced. The following table summarizes the mapping between claims, expeirments, figures, and tables.
+
+### Instructions
+1. Set up environments including cloning Lingua Franca and building the Lingua Franca compiler, the runtime infrastructure (RTI), and the tracing tool.
 ```
 ./setup.sh
 ```
 
+2. Run the tests with the root priviledge. This script runs the scripts `src/run_HLA_like_tests.sh`, `src/run_solution_tests.sh`, and `src/run_SOTA_tests.sh`.
 ```
-./run_all.sh
+sudo ./run_all.sh
 ```
 
-In `Results/`,
+3. Process the results, specifically, generate the CSV files containing the measured lags, draw graphs based on the CSV files, create the Latex table with the measured number of exchanged network signals.
 ```
+cd Results/
 ./process_results.sh
 ```
 
-This will generate `SporadicSenderLags.pdf`, `SporadicSenderLags.pdf`, and `SporadicSenderLags.pdf`, which are the plots of Figure 15 as well as `table_num_signals.tex`, the table in the Latex format.
+This script runs the following python scripts:
+```
+combineCSVAverage.py /* Combine CSV files sotring the measured lags*/
+generateGnuplot.py /* Generate Gnuplot files according to the measured lags*/
+numSignal.py /* Convert the Linuga Franca trace files (*.lft) to CSV files and combine them */
+generateTable.py /* Create the Latex format table that summarizes the number of network signals */
+```
+and generates plots by running the following commands:
+```
+gnuplot SporadicSenderLags.gnuplot
+gnuplot DistanceSensingLags.gnuplot 
+gnuplot CycleWithDelayLags.gnuplot
+```
+
+### Expected Runtime
+The expected runtime is `500 seconds` (each program's timeout time) * 15 (number of programs) * 3 (number of approaches) = `6.25 hours` excluding the compile time. 
+
+### Result graphs and table
+After the tests complete, you can find `SporadicSenderLags.pdf`, `SporadicSenderLags.pdf`, and `SporadicSenderLags.pdf`, which are the subplots of Figure 15 as well as `table_num_signals.tex`, Table 3 in the paper.
+
+## Notes
+All scripts assume that they run on the directory they locate.
