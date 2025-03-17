@@ -39,12 +39,16 @@ efficient-DDE-experiments/
  |-- lingua-franca-solution/ /* Lingua Franca with our solution */
  |-- lingua-franca-SOTA/ /* Lingua Franca with DNET signal capability */
  |-- Results/       /* Raw results and scripts to process them */
- |-- src/           /* Lingua Franca programs for testing and scripts to run tests for each approach */   
+ |-- src/           /* Lingua Franca programs for testing and scripts to run tests for each approach */
+ |-- LICENSE        /* License */
  |-- README.md      /* This file */
  |-- clean_all.sh   /* Script to clean up the generated codes */
  |-- run_all.sh     /* Script to run all tests */
  |-- setup.sh       /* Script to set up the environment */
 ```
+
+## License
+The software is released with the BSD 2-Clause License.
 
 ## Article Claims
 The artical has two major claims:
