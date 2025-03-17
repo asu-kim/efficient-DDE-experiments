@@ -1,6 +1,6 @@
 # [efficient-DDE-experiments](https://github.com/asu-kim/efficient-DDE-experiments)
 
-This is an artifact for evaluation of the paper:
+This is an artifact for evaluation of the paper (PADS'25):
 
 "Improving the Efficiency of Coordinating Timed Events in Distributed Systems"
 
@@ -52,7 +52,7 @@ The software is released with the BSD 2-Clause License.
 
 ## Article Claims
 The article has two major claims:
-* C1: Our solution prevents the programs `DistanceSensing` and `CycleWithDelay` from suffering the excessive lags even with shorther timer periods, e.g., 5ms and 10 ms, where HLA-like and SOTA approaches fail.
+* C1: Our solution prevents the programs `DistanceSensing` and `CycleWithDelay` from suffering excessive lags even with shorter timer periods, e.g., 5ms and 10 ms, where HLA-like and SOTA approaches fail.
 * C2: Our solution reduces communication overhead, i.e., the number of exchanged signals, for all programs.
 
 ## Reproducing the Results.
@@ -64,7 +64,7 @@ The paper has 1 figure (3 subfigures) and 1 table that can be reproduced. The fo
 | C2    |             Table 3                   |
 
 ### Instructions
-1. Set up environments including cloning Lingua Franca and building the Lingua Franca compiler, the runtime infrastructure (RTI), and the tracing tool.
+1. Set up environments, including cloning Lingua Franca and building the Lingua Franca compiler, the runtime infrastructure (RTI), and the tracing tool.
 ```
 ./setup.sh
 ```
@@ -74,7 +74,7 @@ The paper has 1 figure (3 subfigures) and 1 table that can be reproduced. The fo
 sudo ./run_all.sh
 ```
 
-3. Process the results, specifically, generate the CSV files containing the measured lags, draw graphs based on the CSV files, create the Latex table with the measured number of exchanged network signals.
+3. Process the results, specifically, generate the CSV files containing the measured lags, draw graphs based on the CSV files, and create the Latex table with the measured number of exchanged network signals.
 ```
 cd Results/
 ./process_results.sh
@@ -95,16 +95,16 @@ gnuplot CycleWithDelayLags.gnuplot
 ```
 
 ### Expected Runtime
-The expected runtime is `500 sec` (each program's timeout time) * 15 (number of programs) * 3 (number of approaches) = `6.25 hours` excluding the compile and setup time. 
+The expected runtime is `500 sec` (each program's timeout time) * 15 (number of programs) * 3 (number of approaches) = `6.25 hours` excluding the compilation and setup time. 
 
 ### Result Graphs and Table
-After the tests are complete, you can find `SporadicSenderLags.pdf`, `DistanceSensingLags.pdf`, and `CycleWithDelayLags.pdf`, which are Figure 15a, Figure 15b, and Figure 15c, respectively.
-You can also find `table_num_signals.tex`, which is Table 3 in the paper.
+After the tests are complete, you can find `SporadicSenderLags.pdf`, `DistanceSensingLags.pdf`, and `CycleWithDelayLags.pdf`, which are Figure 15a, Figure 15b, and Figure 15c of our PADS'25 paper, respectively.
+You can also find `table_num_signals.tex`, which is Table 3 of our PADS'25 paper.
 
 ## Notes for Repeatability of Experiments
 All scripts assume that they run on the directory they locate.
 
-Before running the tests, make sure the command `sudo tc qdisc add dev lo root netem delay 5ms 1ms` runs correctly by running
+Before running the tests, make sure the command `sudo tc qdisc add dev lo root netem delay 5ms 1ms` runs correctly by running the following commands:
 ```
 sudo tc qdisc add dev lo root netem delay 5ms 1ms
 ping localhost
