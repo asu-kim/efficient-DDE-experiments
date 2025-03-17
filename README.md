@@ -58,10 +58,10 @@ The article has two major claims:
 ## Reproducing the Results.
 The paper has 1 figure (3 subfigures) and 1 table that can be reproduced. The following table summarizes the mapping between claims with figures and table.
 
-| Claim |          Figures and Table            |
-|-------|---------------------------------------|
-| C1    | Figure 15a, Figure 15b, Figure 15c    |
-| C2    |             Table 3                   |
+| Claim |  Figures and Table of our PADS'25 Paper  |
+|-------|------------------------------------------|
+| C1    |   Figure 15a, Figure 15b, Figure 15c     |
+| C2    |               Table 3                    |
 
 ### Instructions
 1. Set up environments, including cloning Lingua Franca and building the Lingua Franca compiler, the runtime infrastructure (RTI), and the tracing tool.
