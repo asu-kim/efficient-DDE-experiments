@@ -34,8 +34,8 @@ set tmargin at screen bm + size + gap
 
 set key font ",16"
 
-set yrange [0:0.2]
-set ytics (0.05, 0.1, 0.15)
+set yrange [0:0.25]
+set ytics (0.05, 0.1, 0.15, 0.2)
 set xtics ('5' 3, '10' 6, '20' 9)
 plot 'SporadicSenderHLA_likeStatistics.csv' using (3*$1-xx):3:(ww) lt 1 w boxes title 'HLA-like',\
     '' u (3*$1-xx):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\

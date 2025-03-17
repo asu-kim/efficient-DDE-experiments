@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python3 combineCSVAverge.py
+python3 combineCSVAverage.py
 python3 generateGnuplot.py
 python3 numSignal.py
 python3 generateTable.py

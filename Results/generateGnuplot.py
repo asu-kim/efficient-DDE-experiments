@@ -109,8 +109,8 @@ def process_files(prefix):
     print(f"\nProcessing {prefix} files:")
     
     # Define file paths
-    plain_csv = f"{prefix}PlainStatistics.csv"
-    dnet_csv = f"{prefix}DNETStatistics.csv"
+    plain_csv = f"{prefix}HLA_likeStatistics.csv"
+    dnet_csv = f"{prefix}SOTAStatistics.csv"
     solution_csv = f"{prefix}SolutionStatistics.csv"  # Not used for calculations but checked for existence
     gnuplot_file = f"{prefix}Lags.gnuplot"
     
