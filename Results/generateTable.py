@@ -7,7 +7,7 @@ approaches = ["HLA_like", "SOTA", "Solution"]
 
 # Timer periods and metrics to display
 timer_periods = ["5ms", "10ms", "20ms", "50ms", "100ms"]
-display_metrics = ["NET", "LTC", "TAG", "DNET", "Total"]
+display_metrics = ["NET", "LTC", "TAG", "DNET"]  # Removed "Total" as it's handled separately
 
 # Function to read CSV file
 def read_csv_file(file_path):
@@ -65,23 +65,57 @@ def generate_latex_table():
             csv_path = f"{approach}/{benchmark}/{benchmark}_num_signals.csv"
             data[approach] = read_csv_file(csv_path)
         
-        # Generate rows for each metric
+        # Generate rows for each metric (excluding Total)
         for metric in display_metrics:
             row = f"\t\t{metric} "
             
-            # Add values for each approach
-            for approach in approaches:
-                values = []
-                for period in timer_periods:
-                    value = get_value(data[approach], metric, period)
-                    values.append(format_value(value))
-                
-                # Add to row
-                row += "& " + " & ".join(values) + " "
+            # Add values for HLA-like
+            for period in timer_periods:
+                value = get_value(data["HLA_like"], metric, period)
+                row += f"& {format_value(value)} "
+            
+            # Add metric name and values for SOTA
+            row += f"& {metric} "
+            for period in timer_periods:
+                value = get_value(data["SOTA"], metric, period)
+                row += f"& {format_value(value)} "
+            
+            # Add metric name and values for Our Solution
+            row += f"& {metric} "
+            for period in timer_periods:
+                value = get_value(data["Solution"], metric, period)
+                row += f"& {format_value(value)} "
             
             row += "\\\\\n"
             latex_table += row
         
+        # Add a horizontal line after the metrics
+        latex_table += "\t\t\\hline\n"
+        
+        # Add the Total row separately
+        row = "\t\tTotal "
+        
+        # Add Total values for HLA-like
+        for period in timer_periods:
+            value = get_value(data["HLA_like"], "Total", period)
+            row += f"& {format_value(value)} "
+        
+        # Add Total name and values for SOTA
+        row += "& Total "
+        for period in timer_periods:
+            value = get_value(data["SOTA"], "Total", period)
+            row += f"& {format_value(value)} "
+        
+        # Add Total name and values for Our Solution
+        row += "& Total "
+        for period in timer_periods:
+            value = get_value(data["Solution"], "Total", period)
+            row += f"& {format_value(value)} "
+        
+        row += "\\\\\n"
+        latex_table += row
+        
+        # Add a horizontal line after the Total row
         latex_table += "\t\t\\hline\n"
         
         # Add a separator between benchmarks (except for the last one)
