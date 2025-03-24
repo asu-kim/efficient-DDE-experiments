@@ -37,14 +37,16 @@ set key font ",16"
 set yrange [0:0.25]
 set ytics (0.05, 0.1, 0.15, 0.2)
 set xtics ('5' 3, '10' 6, '20' 9)
-plot 'SporadicSenderHLA_likeStatistics.csv' using (3*$1-xx):3:(ww) lt 1 w boxes title 'HLA-like',\
-    '' u (3*$1-xx):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
-    '' u (3*$1-xx):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle,\
-    'SporadicSenderSOTAStatistics.csv' using (3*$1):3:(ww) lt 2 w boxes title 'SOTA',\
-    '' u (3*$1):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
-    '' u (3*$1):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle,\
-    'SporadicSenderSolutionStatistics.csv' using (3*$1+xx):3:(ww) lt 4 w boxes title 'Our Solution',\
-    '' u (3*$1+xx):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
-    '' u (3*$1+xx):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle
+
+# Filter to only show rows with delay <= 20ms
+plot 'SporadicSenderHLA_likeStatistics.csv' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(ww) lt 1 w boxes title 'HLA-like',\
+    '' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
+    '' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle,\
+    'SporadicSenderSOTAStatistics.csv' using ($2 <= 20 ? 3*$1 : 1/0):3:(ww) lt 2 w boxes title 'SOTA',\
+    '' using ($2 <= 20 ? 3*$1 : 1/0):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
+    '' using ($2 <= 20 ? 3*$1 : 1/0):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle,\
+    'SporadicSenderSolutionStatistics.csv' using ($2 <= 20 ? 3*$1+xx : 1/0):3:(ww) lt 4 w boxes title 'Our Solution',\
+    '' using ($2 <= 20 ? 3*$1+xx : 1/0):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
+    '' using ($2 <= 20 ? 3*$1+xx : 1/0):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle
 
 unset multiplot

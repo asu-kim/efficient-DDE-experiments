@@ -37,15 +37,17 @@ set key font ",16"
 set yrange [y1:y2]
 set ytics (1, 2, 3, 4)
 set xtics ('5' 3, '10' 6, '20' 9)
-plot 'CycleWithDelayHLA_likeStatistics.csv' using (3*$1-xx):3:(ww) lt 1 w boxes notitle,\
-    '' u (3*$1-xx):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
-    '' u (3*$1-xx):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle,\
-    'CycleWithDelaySOTAStatistics.csv' using (3*$1):3:(ww) lt 2 w boxes notitle,\
-    '' u (3*$1):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
-    '' u (3*$1):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle,\
-    'CycleWithDelaySolutionStatistics.csv' using (3*$1+xx):3:(ww) lt 4 w boxes title 'Our Solution',\
-    '' u (3*$1+xx):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
-    '' u (3*$1+xx):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle
+
+# Bottom plot - filter using the condition $2 <= 20
+plot 'CycleWithDelayHLA_likeStatistics.csv' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(ww) lt 1 w boxes notitle,\
+    '' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
+    '' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle,\
+    'CycleWithDelaySOTAStatistics.csv' using ($2 <= 20 ? 3*$1 : 1/0):3:(ww) lt 2 w boxes notitle,\
+    '' using ($2 <= 20 ? 3*$1 : 1/0):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
+    '' using ($2 <= 20 ? 3*$1 : 1/0):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle,\
+    'CycleWithDelaySolutionStatistics.csv' using ($2 <= 20 ? 3*$1+xx : 1/0):3:(ww) lt 4 w boxes title 'Our Solution',\
+    '' using ($2 <= 20 ? 3*$1+xx : 1/0):3:(sprintf("{/Symbol m}: %.2f", $3)) w labels offset 0,1.4 font ",12" notitle,\
+    '' using ($2 <= 20 ? 3*$1+xx : 1/0):3:(sprintf("{/Symbol s}: %.1f", $4)) w labels offset 0,0.6 font ",12" notitle
 
 unset xtics
 unset xlabel
@@ -57,13 +59,14 @@ set bmargin at screen bm + size * bk + gap
 set tmargin at screen bm + size * bk + size * mk + gap
 set yrange [y3:y4]
 
-plot 'CycleWithDelayHLA_likeStatistics.csv' using (3*$1-xx):3:(ww) lt 1 w boxes notitle,\
-    '' u (3*$1-xx):3:(sprintf("{/Symbol m}: %d", $3)) w labels offset 0,1.7 font ",13" notitle,\
-    '' u (3*$1-xx):3:(sprintf("{/Symbol s}: %d", $4)) w labels offset 0,0.6 font ",13" notitle,\
-    'CycleWithDelaySOTAStatistics.csv' using (3*$1):3:(ww) lt 2 w boxes title 'SOTA',\
-    '' u (3*$1):3:(sprintf("{/Symbol m}: %d", $3)) w labels offset 0,1.7 font ",13" notitle,\
-    '' u (3*$1):3:(sprintf("{/Symbol s}: %d", $4)) w labels offset 0,0.6 font ",13" notitle,\
-    'CycleWithDelaySolutionStatistics.csv' using (3*$1+xx):3:(ww) lt 4 w boxes notitle
+# Middle plot
+plot 'CycleWithDelayHLA_likeStatistics.csv' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(ww) lt 1 w boxes notitle,\
+    '' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(sprintf("{/Symbol m}: %d", $3)) w labels offset 0,1.7 font ",13" notitle,\
+    '' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(sprintf("{/Symbol s}: %d", $4)) w labels offset 0,0.6 font ",13" notitle,\
+    'CycleWithDelaySOTAStatistics.csv' using ($2 <= 20 ? 3*$1 : 1/0):3:(ww) lt 2 w boxes title 'SOTA',\
+    '' using ($2 <= 20 ? 3*$1 : 1/0):3:(sprintf("{/Symbol m}: %d", $3)) w labels offset 0,1.7 font ",13" notitle,\
+    '' using ($2 <= 20 ? 3*$1 : 1/0):3:(sprintf("{/Symbol s}: %d", $4)) w labels offset 0,0.6 font ",13" notitle,\
+    'CycleWithDelaySolutionStatistics.csv' using ($2 <= 20 ? 3*$1+xx : 1/0):3:(ww) lt 4 w boxes notitle
 
 unset ytics
 unset ylabel
@@ -72,12 +75,14 @@ set border 2+4+8
 set bmargin at screen bm + size * bk + size * mk + gap + gap
 set tmargin at screen bm + size + gap + gap
 set yrange [y5:y6]
-plot 'CycleWithDelayHLA_likeStatistics.csv' using (3*$1-xx):3:(ww) lt 1 w boxes title 'HLA-like',\
-    '' u (3*$1-xx-0.15):3:(sprintf("{/Symbol m}: %d", $3)) w labels offset 0,1.7 font ",13" notitle,\
-    '' u (3*$1-xx-0.15):3:(sprintf("{/Symbol s}: %d", $4)) w labels offset 0,0.6 font ",13" notitle,\
-    'CycleWithDelaySOTAStatistics.csv' using (3*$1):3:(ww) lt 2 w boxes notitle,\
-    '' u (3*$1):3:(sprintf("{/Symbol m}: %d", $3)) w labels offset 0,1.7 font ",13" notitle,\
-    '' u (3*$1):3:(sprintf("{/Symbol s}: %d", $4)) w labels offset 0,0.6 font ",13" notitle,\
-    'CycleWithDelaySolutionStatistics.csv' using (3*$1+xx):3:(ww) lt 4 w boxes notitle
+
+# Top plot
+plot 'CycleWithDelayHLA_likeStatistics.csv' using ($2 <= 20 ? 3*$1-xx : 1/0):3:(ww) lt 1 w boxes title 'HLA-like',\
+    '' using ($2 <= 20 ? 3*$1-xx-0.15 : 1/0):3:(sprintf("{/Symbol m}: %d", $3)) w labels offset 0,1.7 font ",13" notitle,\
+    '' using ($2 <= 20 ? 3*$1-xx-0.15 : 1/0):3:(sprintf("{/Symbol s}: %d", $4)) w labels offset 0,0.6 font ",13" notitle,\
+    'CycleWithDelaySOTAStatistics.csv' using ($2 <= 20 ? 3*$1 : 1/0):3:(ww) lt 2 w boxes notitle,\
+    '' using ($2 <= 20 ? 3*$1 : 1/0):3:(sprintf("{/Symbol m}: %d", $3)) w labels offset 0,1.7 font ",13" notitle,\
+    '' using ($2 <= 20 ? 3*$1 : 1/0):3:(sprintf("{/Symbol s}: %d", $4)) w labels offset 0,0.6 font ",13" notitle,\
+    'CycleWithDelaySolutionStatistics.csv' using ($2 <= 20 ? 3*$1+xx : 1/0):3:(ww) lt 4 w boxes notitle
 
 unset multiplot
