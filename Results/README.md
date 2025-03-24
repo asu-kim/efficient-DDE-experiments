@@ -16,6 +16,6 @@ efficient-DDE-experiments/
     |-- DistanceSensingLags.pdf        /* Generated Figure 15b in the paper */
     |-- CycleWithDelayLags.gnuplot     /* Gnuplot code to generate Figure 15c in the paper */
     |-- CycleWithDelayLags.pdf         /* Generated Figure 15c in the paper */
-    |-- table_num_signals              /* Generated Table 3 in the paper */
+    |-- table_num_signals.tex          /* Generated Table 3 in the paper */
     |-- process_results.sh             /* Run every Python script and generate figures and table at once */
 ```
