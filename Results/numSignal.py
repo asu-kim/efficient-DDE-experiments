@@ -66,13 +66,13 @@ def process_rti_file(rti_path, top_dir):
                     
                 signal_type, count = parts[0].strip(), int(parts[1].strip())
                 
-                if 'Receiving NET' in signal_type:
+                if 'Receiving NET' == signal_type:
                     signal_counts['num_NET'] = count
-                elif 'Receiving LTC' in signal_type:
+                elif 'Receiving LTC' == signal_type:
                     signal_counts['num_LTC'] = count
-                elif 'Sending TAG' in signal_type:
+                elif 'Sending TAG' == signal_type:
                     signal_counts['num_TAG'] = count
-                elif 'Sending DNET' in signal_type:
+                elif 'Sending DNET' == signal_type:
                     signal_counts['num_DNET'] = count
         
         # Calculate total
