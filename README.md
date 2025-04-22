@@ -1,5 +1,7 @@
 # [efficient-DDE-experiments](https://github.com/asu-kim/efficient-DDE-experiments)
 
+[![DOI](https://zenodo.org/badge/946745961.svg)](https://doi.org/10.5281/zenodo.15263644)
+
 This is an artifact for evaluation of the paper (PADS'25):
 
 "Improving the Efficiency of Coordinating Timed Events in Distributed Systems"
